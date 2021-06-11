@@ -1,0 +1,12 @@
+
+
+.bg-img{
+
+background-image: url("assets/images/color-transition-retro-colorful-mesh-260nw-1092323336.webp");
+background-size: cover;
+
+}
+
+.box-shadow{
+    box-shadow: 0px 0px 3px .5px;
+}
