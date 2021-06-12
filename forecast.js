@@ -1,5 +1,5 @@
-// var APIkey = c5b4ec174b91d992a568573d90815;
-// var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+  var APIkey = 60b3b0f9270d23126b0368ca666f6b20;
+ var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 var inputEl = $('.input');
 var contentEl = $('.content');
 
@@ -23,7 +23,7 @@ var printSkills = function (city) {
   var handleFormSubmit = function (event) {
     event.preventDefault();
   
-    var nameInput = nameInputEl.val();
+    var nameInput = InputEl.val();
   
     if (!nameInput) {
       console.log('Please input a city!');
