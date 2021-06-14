@@ -1,8 +1,10 @@
-  var APIkey = 60b3b0f9270d23126b0368ca666f6b20;
- var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-var inputEl = $('.input');
-var contentEl = $('.content');
-
+var city;
+var APIKey = '139c5b4ec174b91d992a568573d90815';
+var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+var inputEl = $('#input');
+var contentEl = $('#cityMemory');
+var cityInfo = $('#info');
+// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
 // remember location.replace
 
@@ -10,7 +12,7 @@ var contentEl = $('.content');
 // print the search results
 
 var printSkills = function (city) {
-    var listEl = $('<li>');
+    var listEl = $('<td>');
     var listDetail = city;
     listEl.addClass('list-group-item').text(listDetail);
     listEl.addClass('box');
@@ -18,6 +20,7 @@ var printSkills = function (city) {
 
     console.log(listEl);
     console.log(listDetail);
+    console.log(city);
   };
   
   var handleFormSubmit = function (event) {
@@ -26,7 +29,7 @@ var printSkills = function (city) {
     var nameInput = InputEl.val();
   
     if (!nameInput) {
-      console.log('Please input a city!');
+      alert('Please input a city!');
       return;
     }
   
@@ -36,4 +39,22 @@ var printSkills = function (city) {
     nameInputEl.val('');
   };
   
-  formEl.on('submit', handleFormSubmit);
+  contentEl.on('submit', handleFormSubmit);
+
+
+  // fetch function
+
+  var getWeatherData = function(city){
+
+    fetch(queryURL, {
+      method: 'GET',
+    }) 
+    // this alllows data to be configured to json
+    .then(function(resp){
+      return resp.json()
+    })
+    .then(function(data){
+      console.log(data);
+    })
+
+  }

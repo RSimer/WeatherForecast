@@ -18,12 +18,12 @@
     </div>
 
     <!-- search bar -->
-    <div class="column is-one-third">
+    <div class="column is-3">
     <div class="box box-shadow">
         <h2 class="is-size-4">Type in a city:</h2>
     <div class="field has-addons">
         <div class="control">
-          <input class="input" type="text" placeholder="ex: Seattle">
+          <input class="input" id="input" type="text" placeholder="ex: Seattle">
         </div>
         <div class="control">
           <a class="button is-info">
@@ -33,9 +33,12 @@
       </div>
       <br />
       </div>
-          <ol class="content">
+          <tr class="content" id="cityMemory">
 
-          </ol>
+          </tr>
+      </div>
+      <div class="column is-7 is-offset-4 has-background-primary" id="info">
+
       </div>
 
 
@@ -43,5 +46,5 @@
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script rel="stylesheet" href="forecast.js"></script>
+<script  src="forecast.js"></script>
 </html>
