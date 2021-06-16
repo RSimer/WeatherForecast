@@ -47,8 +47,8 @@ var cityLocal = function(city){
    })
   .then(function(data){
     console.log(data);
-  
   })
+  
   };
 
 
@@ -74,7 +74,7 @@ var cityLocal = function(city){
     };
 
 
-    
+
   // Creating the data points but i dont know if they work
   WeatherCast.empty();
   forecastIn.empty();
