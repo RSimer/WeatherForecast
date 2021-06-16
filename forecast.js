@@ -11,7 +11,7 @@ var city;
 var days = 5;
 var cityValue;
 var archive = JSON.parse(window.localStorage.getItem('archive')) || [];
-var emptyData = function(display){
+var emptyData = function(){
 
 }
 
@@ -51,27 +51,6 @@ var cityLocal = function(city){
   })
   };
 
-  // fetch function
-  function handle_geolocation_query(data){  
-    lat = (data.coord.lat);
-    lon = (data.coord.lon); 
-    console.log(lat,lon);
-  };
-
-
-  WeatherCast.empty();
-  forecastIn.empty();
-  var addCard = $('<div>').addClass('box');
-  var addHead = $('<h2>').addClass('is-size-3').text(moment().format("MM,DD,YYYY")) ;
-  var addImg = $('<img>').attr(`src = https://openweathermap.org/img/wn/${forecastData.daily[i].weather[0].icon}@2x.png` )
-  var addTemp = $('<p>').text(`Temp: ${data.main.temp} F`);
-  var addWind = $('<p>').text(`Wind: ${data.wind.sped} Mph`);
-  var addHumid = $('<p>').text(`Humidity: ${data.main.humidity}`);
-  // var addUv = $('<p>').text(`UV: ${data.UV}`);
-
-
-
-
 
   var getWeatherData = function(lat,lon){
       var oneCall = `${queryURL}onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&APPID=${APIKey}`;
@@ -84,8 +63,28 @@ var cityLocal = function(city){
       console.log(locRes);
     })
     console.log(lat,lon);
-  };
+  }
 
+
+    // fetch function
+    function handle_geolocation_query(data){  
+      lat = (data.coord.lat);
+      lon = (data.coord.lon); 
+      console.log(lat,lon);
+    };
+
+
+    
+  // Creating the data points but i dont know if they work
+  WeatherCast.empty();
+  forecastIn.empty();
+  var addCard = $('<div>').addClass('box');
+  var addHead = $('<h2>').addClass('is-size-3').text(moment().format("MM,DD,YYYY")) ;
+  var addImg = $('<img>').attr(`src = https://openweathermap.org/img/wn/${forecastData.daily[i].weather[0].icon}@2x.png` )
+  var addTemp = $('<p>').text(`Temp: ${data.main.temp} F`);
+  var addWind = $('<p>').text(`Wind: ${data.wind.sped} Mph`);
+  var addHumid = $('<p>').text(`Humidity: ${data.main.humidity}`);
+  // var addUv = $('<p>').text(`UV: ${data.UV}`);
 function weatherPush() {
   WeatherCast.empty();
   getWeatherData();
@@ -105,6 +104,11 @@ for (i=0;i<days;i++){
 
   
   `)}
+
+
+
+
+  
 console.log(fiveDayForecast);
 }
 
