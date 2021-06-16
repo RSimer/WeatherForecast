@@ -22,7 +22,6 @@ var citySubmit = function(){
     cityLocal();
     getWeatherData();
 
-
 if(archive.indexOf(city)=== -1){
 
   archive.push(city)
@@ -33,6 +32,7 @@ if(archive.indexOf(city)=== -1){
 
   console.log(city);
 };
+
 
 // use this to get the city results
 var cityLocal = function(city){
@@ -48,21 +48,22 @@ var cityLocal = function(city){
   .then(function(data){
     console.log(data);
   })
-  
-  };
-
+}
 
   var getWeatherData = function(lat,lon){
-      var oneCall = `${queryURL}onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&APPID=${APIKey}`;
+      var oneCall = `${queryURL}onecall?lat=${lat}&lon=${lon}&APPID=${APIKey}&units=imperial`;
     fetch(oneCall) 
     // this alllows data to be configured to json
     .then(function(response){
       return response.json()
     })
-    .then(function(locRes){
-      console.log(locRes);
+    .then(function(data){
+      var lat = `${data.coord.lat}`;
+      var lon = `${data.coord.lon}`;
+      cityLocal(lat,lon);
+      console.log(lat,lon);
+      console.log(data);
     })
-    console.log(lat,lon);
   }
 
 
@@ -72,25 +73,29 @@ var cityLocal = function(city){
       lon = (data.coord.lon); 
       console.log(lat,lon);
     };
-
+  
 
 
   // Creating the data points but i dont know if they work
-  WeatherCast.empty();
-  forecastIn.empty();
-  var addCard = $('<div>').addClass('box');
+  // WeatherCast.empty();
+  // forecastIn.empty();
+  var addCard = $('<div>').addClass('box has-background-black');
   var addHead = $('<h2>').addClass('is-size-3').text(moment().format("MM,DD,YYYY")) ;
-  var addImg = $('<img>').attr(`src = https://openweathermap.org/img/wn/${forecastData.daily[i].weather[0].icon}@2x.png` )
-  var addTemp = $('<p>').text(`Temp: ${data.main.temp} F`);
-  var addWind = $('<p>').text(`Wind: ${data.wind.sped} Mph`);
-  var addHumid = $('<p>').text(`Humidity: ${data.main.humidity}`);
+  // // var addImg = $('<img>').attr(`src = https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` )
+  // var addTemp = $('<p>').text(`Temp: ${data.main.temp} F`);
+  // var addWind = $('<p>').text(`Wind: ${data.wind.sped} Mph`);
+  // var addHumid = $('<p>').text(`Humidity: ${data.main.humidity}`);
   // var addUv = $('<p>').text(`UV: ${data.UV}`);
+
+
+  // append 
 function weatherPush() {
   WeatherCast.empty();
   getWeatherData();
-  WeatherCast.append(`
-
-  `)
+  WeatherCast.append(
+  addCard,
+  addHead
+  )
   console.log(weatherPush());
 };
 // 5 day forecast
@@ -98,7 +103,7 @@ function weatherPush() {
 var fiveDayForecast = function(){
 for (i=0;i<days;i++){
   forecastIn.addClass('.box');
-  forecastIn.push(`
+  forecastIn.append(`
 
 
 
