@@ -19,8 +19,7 @@ var emptyData = function(){
 var citySubmit = function(){
 
   city = inputEl.val();
-    cityLocal();
-    getWeatherData();
+   cityLocal();
 
 if(archive.indexOf(city)=== -1){
 
@@ -41,63 +40,46 @@ var cityLocal = function(city){
 
   var cityApi = `${queryURL}weather?q=${city}&APPID=${APIKey}&units=imperial`;
    fetch (cityApi)
-   .then(function(response){
-        return response.json();
-
-   })
-  .then(function(data){
-    console.log(data);
-  })
+   .then(response => response.json())
+   .then(data => getWeatherData(data.coord.lat,data.coord.lon));
 }
 
   var getWeatherData = function(lat,lon){
       var oneCall = `${queryURL}onecall?lat=${lat}&lon=${lon}&APPID=${APIKey}&units=imperial`;
     fetch(oneCall) 
     // this alllows data to be configured to json
-    .then(function(response){
-      return response.json()
-    })
-    .then(function(data){
-      var lat = `${data.coord.lat}`;
-      var lon = `${data.coord.lon}`;
-      cityLocal(lat,lon);
-      console.log(lat,lon);
-      console.log(data);
-    })
+    .then(response => response.json())
+    .then(data => updateScreen(data))
   }
 
 
     // fetch function
-    function handle_geolocation_query(data){  
-      lat = (data.coord.lat);
-      lon = (data.coord.lon); 
-      console.log(lat,lon);
-    };
+   function updateScreen(data){
+     inputEl.empty();
+     console.log(data);
+    inputEl.append(`
+       <div box>;
+       <h2'is-size-3>(${moment().format("MM,DD,YYYY")}) ;
+       <img src = https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png>
+       <p> Temp: ${data.current.temp} F </p>
+       <p> Wind: ${data.current.wind_speed} Mph </p>
+       <p> Humidity: ${data.current.humidity} </p>
+       <p> UV: ${data.current.uvi} </p>
+       </div>
+
+
+       <h5 is-size-4> next 5-days:</h5>
+
+    `)
+   }
   
 
 
   // Creating the data points but i dont know if they work
   // WeatherCast.empty();
   // forecastIn.empty();
-  var addCard = $('<div>').addClass('box has-background-black');
-  var addHead = $('<h2>').addClass('is-size-3').text(moment().format("MM,DD,YYYY")) ;
-  // // var addImg = $('<img>').attr(`src = https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` )
-  // var addTemp = $('<p>').text(`Temp: ${data.main.temp} F`);
-  // var addWind = $('<p>').text(`Wind: ${data.wind.sped} Mph`);
-  // var addHumid = $('<p>').text(`Humidity: ${data.main.humidity}`);
-  // var addUv = $('<p>').text(`UV: ${data.UV}`);
 
 
-  // append 
-function weatherPush() {
-  WeatherCast.empty();
-  getWeatherData();
-  WeatherCast.append(
-  addCard,
-  addHead
-  )
-  console.log(weatherPush());
-};
 // 5 day forecast
 
 var fiveDayForecast = function(){
