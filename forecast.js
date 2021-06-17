@@ -6,6 +6,7 @@ var inputEl = $('#input');
 var buttonEl = $('#button');
 var WeatherCast = $('#info');
 var forecastIn = $('#forecast');
+var history = $('#archive');
 //cataloging
 var city;
 var days = 5;
@@ -20,6 +21,8 @@ var citySubmit = function(){
 
   city = inputEl.val();
    cityLocal();
+   archiveCity();
+   refer();
 
 if(archive.indexOf(city)=== -1){
 
@@ -31,8 +34,27 @@ if(archive.indexOf(city)=== -1){
 
   console.log(city);
 };
+// display previous searches
+function archiveCity(archive){
+  var archive = JSON.parse(window.localStorage.getItem('archive')) || [];
+  var specify = archive.sort(); 
+  var history = $('#archive');
+
+  var create = $(document.createElement('a'));
+  create.addClass('box is-grey');
+  create.text(`${specify}`)
+  history.append(create);
+  
+  console.log(history);
+}
+function refer(){
+$('.archive').on("click", "a", function(){
+  cityLocal($(this).text());
 
 
+})
+console.log()
+}
 // use this to get the city results
 var cityLocal = function(city){
 
@@ -49,17 +71,22 @@ var cityLocal = function(city){
     fetch(oneCall) 
     // this alllows data to be configured to json
     .then(response => response.json())
-    .then(data => updateScreen(data))
+    .then((data) =>{
+
+     updateScreen(data)
+     fiveDayForecast(data.daily)
+    })
   }
 
 
     // fetch function
    function updateScreen(data){
-     inputEl.empty();
+     WeatherCast.empty();
      console.log(data);
-    inputEl.append(`
-       <div box>;
-       <h2'is-size-3>(${moment().format("MM,DD,YYYY")}) ;
+    WeatherCast.append(`
+       <div class="box has-background-primary is-5">
+       <h4 class="size-3"> ${city} </h4>
+       <h2'> ${moment().format("MM,DD,YYYY")}</h2>
        <img src = https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png>
        <p> Temp: ${data.current.temp} F </p>
        <p> Wind: ${data.current.wind_speed} Mph </p>
@@ -68,35 +95,34 @@ var cityLocal = function(city){
        </div>
 
 
-       <h5 is-size-4> next 5-days:</h5>
 
     `)
    }
+
+  function fiveDayForecast(data){
+  console.log(data);
+  for (i=0;i<days;i++){
   
-
-
-  // Creating the data points but i dont know if they work
-  // WeatherCast.empty();
-  // forecastIn.empty();
-
-
-// 5 day forecast
-
-var fiveDayForecast = function(){
-for (i=0;i<days;i++){
   forecastIn.addClass('.box');
   forecastIn.append(`
+  <div class="box ml-2 has-background-info-dark">
+  <h2 class = "has-text-white-bis"> ${moment(data.dt).format("MM,DD,YYYY")}</h2>
+  <img src = https://openweathermap.org/img/wn/${data[i].weather[0].icon}@2x.png>
+  <p class ="has-text-white-bis"> Temp: ${data[i].temp.day} F </p>
+  <p class="has-text-white-bis"> Wind: ${data[i].wind_speed} Mph </p>
+  <p class="has-text-white-bis"> Humidity: ${data[i].humidity} </p>
+  </div>
+
+
+  
+  `)
+}
+
 
 
 
   
-  `)}
 
-
-
-
-  
-console.log(fiveDayForecast);
 }
 
 
