@@ -18,5 +18,7 @@ Im learning how to rely on others. I think I talked with 5 seperate people with 
 
 # show of work
 
-! [Screenshot](assets/images/screenshot(3).png)
+![Screenshot](assets/images/screenshot(3).png)
+
+https://RSimer.github.io/WeatherForecast/
 
