@@ -41,11 +41,11 @@ function archiveCity(archive){
   var history = $('#archive');
 
   var create = $(document.createElement('a'));
-  create.addClass('box is-grey');
+  create.addClass('box has-background-info');
   create.text(`${specify}`)
   history.append(create);
   
-  console.log(history);
+  console.log(specify);
 }
 function refer(){
 $('.archive').on("click", "a", function(){
@@ -75,6 +75,7 @@ var cityLocal = function(city){
 
      updateScreen(data)
      fiveDayForecast(data.daily)
+    console.log(data);
     })
   }
 
@@ -102,11 +103,11 @@ var cityLocal = function(city){
   function fiveDayForecast(data){
   console.log(data);
   for (i=0;i<days;i++){
-  
+  var futuredays = moment().add(days);
   forecastIn.addClass('.box');
   forecastIn.append(`
   <div class="box ml-2 has-background-info-dark">
-  <h2 class = "has-text-white-bis"> ${moment(data.dt).format("MM,DD,YYYY")}</h2>
+  <h2 class = "has-text-white-bis"> ${moment(futuredays[i]).format("MM,DD,YYYY")}</h2>
   <img src = https://openweathermap.org/img/wn/${data[i].weather[0].icon}@2x.png>
   <p class ="has-text-white-bis"> Temp: ${data[i].temp.day} F </p>
   <p class="has-text-white-bis"> Wind: ${data[i].wind_speed} Mph </p>
